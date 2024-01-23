@@ -1,0 +1,41 @@
+__default__:
+   account: mageck-screen-analysis
+   time: 36:00:00
+   partition: all
+   nodes: 1
+   ntasks: 1
+   cpus-per-task: 1
+   mem: 10000m
+   hint: nomultithread
+   output: logs/%x-%j.out
+   error: logs/%x-%j.err
+
+fastqc:
+   time: 00:30:00
+   cpus-per-task: 2
+   hint: multithread
+   mem: 2000m
+
+cutadapt_pe:
+   time: 01:00:00
+   cpus-per-task: 6
+   hint: multithread
+   mem: 4g
+
+quality_trim:
+   time: 03:00:00
+   cpus-per-task: 6
+   hint: multithread
+   mem: 8g
+
+bowtie2_map:
+   time: 40:00:00
+   cpus-per-task: 4
+   hint: multithread
+   mem: 30g
+
+run_MAGeCK_mle:
+   time: 36:00:00
+   cpus-per-task: 16
+   hint: multithread
+   mem: 8g

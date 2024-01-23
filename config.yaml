@@ -1,0 +1,67 @@
+CLUSTER_YAML: './cluster.yaml'
+
+library:
+    fa: /exports/chemimm/dual_CRISPR_reference/lib1_and_2/Library2/library2_UCE_VE_screen.fa 
+    dict: /exports/chemimm/dual_CRISPR_reference/lib1_and_2/Library2/lib2_ultraconserved_validatedenhancers_pgRNA_design.txt
+    nbt_ctl_dict: /exports/chemimm/dual_CRISPR_reference/lib1_and_2/Library2/nbt_control_design_lib1_2.txt
+    bowtie2_index: /exports/chemimm/dual_CRISPR_reference/lib1_and_2/Library2/library2_UCE_VE_screen
+    neg_ctl: /exports/chemimm/dual_CRISPR_reference/lib1_and_2/Library2/neg_ctl_pgrnas.txt
+
+pgrnas:
+    len: 35
+    U6fw: ATATATCTTGTGGAAAGGACGAAA
+    H1rv: ATAAGTTCTGTATGAGACCACTCTT
+    adapfa: '/exports/chemimm/minkang/genomes/adapters.fa'
+    adaptsv: '/exports/chemimm/minkang/genomes/adapters.tsv'
+
+samples:
+    lib2_plasmid:
+        - 01seq/SCGPM_Dual-CRISPR-library-Screen-pool_HJYNT_L8_CAGATC_R1.fastq.gz 
+    lib2_control_rep1:
+        - 01seq/SCGPM_Dual-CRISPR-library-Screen-pool_HJYNT_L8_CGATGT_R1.fastq.gz
+    lib2_15days_rep1:
+        - 01seq/SCGPM_Dual-CRISPR-library-Screen-pool_HJYNT_L8_TGACCA_R1.fastq.gz
+    lib2_control_rep2:
+        - 01seq/SCGPM_Dual-CRISPR-Screen-pool-2_HMCH3_L8_CGATGT_R1.fastq.gz
+    lib2_15days_rep2:
+        - 01seq/SCGPM_Dual-CRISPR-Screen-pool-2_HMCH3_L8_TGACCA_R1.fastq.gz
+    lib2_Imatinib_15days_rep2:
+        - 01seq/SCGPM_Dual-CRISPR-Screen-pool-3_HM7JF_L5_GATCAG_R1.fastq.gz
+    lib2_Imatinib_15days_rep1:
+        - 01seq/SCGPM_Dual-CRISPR-Screen-pool-3_HM7JF_L5_TTAGGC_R1.fastq.gz
+
+paired:
+    lib2_plasmid:
+        - 01seq/SCGPM_Dual-CRISPR-library-Screen-pool_HJYNT_L8_CAGATC_R2.fastq.gz
+    lib2_control_rep1:
+        - 01seq/SCGPM_Dual-CRISPR-library-Screen-pool_HJYNT_L8_CGATGT_R2.fastq.gz
+    lib2_15days_rep1:
+        - 01seq/SCGPM_Dual-CRISPR-library-Screen-pool_HJYNT_L8_TGACCA_R2.fastq.gz
+    lib2_control_rep2:
+        - 01seq/SCGPM_Dual-CRISPR-Screen-pool-2_HMCH3_L8_CGATGT_R2.fastq.gz
+    lib2_15days_rep2:
+        - 01seq/SCGPM_Dual-CRISPR-Screen-pool-2_HMCH3_L8_TGACCA_R2.fastq.gz
+    lib2_Imatinib_15days_rep2:
+        - 01seq/SCGPM_Dual-CRISPR-Screen-pool-3_HM7JF_L5_GATCAG_R2.fastq.gz
+    lib2_Imatinib_15days_rep1:
+        - 01seq/SCGPM_Dual-CRISPR-Screen-pool-3_HM7JF_L5_TTAGGC_R2.fastq.gz
+
+experiments:
+    "mle":
+        designmatrix: src/lib2_mle_designmatrix.txt
+    "rra":
+        treatment:
+            - lib2_15days_rep1
+            - lib2_15days_rep2
+            - lib2_Imatinib_15days_rep1
+            - lib2_Imatinib_15days_rep2
+        control:
+            - lib2_control_rep1
+            - lib2_control_rep2
+        plasmid:
+            - lib2_plasmid
+
+# day0label: plasmid
+norm_method: control
+# norm_method: median
+additional_rra_parameter: --normcounts-to-file --adjust-method fdr --remove-zero control --gene-lfc-method alphamedian --gene-test-fdr-threshold 0.05 --sort-criteria "pos" --pdf-report
